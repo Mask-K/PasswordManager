@@ -17,7 +17,22 @@ qt_add_qml_module(appPasswordManager
     URI PasswordManager
     VERSION 1.0
     QML_FILES Main.qml
+    SOURCES utils/saltGenerator.h
+    SOURCES PasswordInfo.h
+    SOURCES manager/passwordManager.h manager/passwordManager.cpp
+    SOURCES authenticator/userAuthenticator.h authenticator/userAuthenticator.cpp
+    SOURCES filemanager/fileManager.h filemanager/fileManager.cpp
+    SOURCES utils/sha-256.h
+    SOURCES encryption/Encryption.h
+    SOURCES encryption/aesEncryption.h encryption/aesEncryption.cpp
 )
+
+target_include_directories(appPasswordManager PRIVATE ${CMAKE_SOURCE_DIR}/utils)
+target_include_directories(appPasswordManager PRIVATE ${CMAKE_SOURCE_DIR}/manager)
+target_include_directories(appPasswordManager PRIVATE ${CMAKE_SOURCE_DIR}/authenticator)
+target_include_directories(appPasswordManager PRIVATE ${CMAKE_SOURCE_DIR}/filemanager)
+target_include_directories(appPasswordManager PRIVATE ${CMAKE_SOURCE_DIR}/encryption)
+
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
