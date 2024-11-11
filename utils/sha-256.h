@@ -6,8 +6,9 @@
 #include <iomanip>
 #include <sstream>
 #include <vector>
+#include <QString>
 
-std::string sha256(const std::string& data) {
+inline QString sha256(const QString& data) {
     EVP_MD_CTX* context = EVP_MD_CTX_new();
     if (context == nullptr) {
         throw std::runtime_error("Failed to create EVP_MD_CTX");
@@ -18,7 +19,7 @@ std::string sha256(const std::string& data) {
         throw std::runtime_error("Failed to initialize SHA-256 context");
     }
 
-    if (EVP_DigestUpdate(context, data.c_str(), data.size()) != 1) {
+    if (EVP_DigestUpdate(context, data.toStdString().c_str(), data.size()) != 1) {
         EVP_MD_CTX_free(context);
         throw std::runtime_error("Failed to update SHA-256 hash");
     }
@@ -38,7 +39,7 @@ std::string sha256(const std::string& data) {
         ss << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(hash[i]);
     }
 
-    return ss.str();
+    return QString::fromStdString(ss.str());
 }
 
 #endif // SHA256_H

@@ -14,7 +14,7 @@ public:
     Q_INVOKABLE bool regist(const QString& login, const QString& masterPassword);
 
 private:
-    QString getFilename();
+    QString getFilename(const QString& login, const QString& masterPassword);
 };
 
 #endif // USERAUTHENTICATOR_H
