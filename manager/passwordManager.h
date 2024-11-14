@@ -5,8 +5,8 @@
 
 #include <vector>
 
-#include <PasswordInfo.h>
-#include <aesEncryption.h>
+#include "PasswordInfo.h"
+#include "aesEncryption.h"
 
 
 class PasswordManager : public QObject

@@ -5,9 +5,9 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 
-#include <fileManager.h>
-#include <sha-256.h>
-#include <saltGenerator.h>
+#include "fileManager.h"
+#include "sha-256.h"
+#include "saltGenerator.h"
 
 
 UserAuthenticator::UserAuthenticator(QObject *parent) : QObject(parent)

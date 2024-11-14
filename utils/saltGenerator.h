@@ -1,10 +1,11 @@
 #ifndef SALTGENERATOR_H
 #define SALTGENERATOR_H
 
+#include <QByteArray>
+
 #include <random>
 #include <iomanip>
 
-#include <QByteArray>
 
 inline QByteArray generateSalt(size_t size = 16) {
     QByteArray salt;

@@ -18,12 +18,10 @@ int main(int argc, char *argv[])
     engine.rootContext()->setContextProperty("authenticator", &userAuthenticator);
     engine.rootContext()->setContextProperty("manager", &passwordManager);
 
-
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreationFailed,
         &app, []() { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
     engine.load(url);
-
 
     return app.exec();
 }

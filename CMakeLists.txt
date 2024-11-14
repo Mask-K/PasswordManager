@@ -26,6 +26,7 @@ qt_add_qml_module(appPasswordManager
     SOURCES encryption/Encryption.h
     SOURCES encryption/aesEncryption.h encryption/aesEncryption.cpp
     SOURCES utils/encryptionKeyGenerator.h
+    SOURCES utils/constants.h
 )
 
 target_include_directories(appPasswordManager PRIVATE ${CMAKE_SOURCE_DIR}/utils)

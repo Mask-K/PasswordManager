@@ -2,11 +2,14 @@
 #define SHA256_H
 
 #include <openssl/evp.h>
+
+#include <QString>
+
 #include <string>
 #include <iomanip>
 #include <sstream>
 #include <vector>
-#include <QString>
+
 
 inline QString sha256(const QString& data) {
     EVP_MD_CTX* context = EVP_MD_CTX_new();
