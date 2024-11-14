@@ -7,7 +7,6 @@ ApplicationWindow {
     height: 300
     title: "Password Manager"
 
-    // Основний колір
     color: "#3D318E"
 
     Rectangle {
@@ -17,7 +16,6 @@ ApplicationWindow {
         anchors.centerIn: parent
         radius: 10
 
-        // Заголовок форми з динамічним текстом
         Text {
             id: titleText
             text: toggle.checked ? "Register" : "Login"
@@ -28,7 +26,6 @@ ApplicationWindow {
             anchors.topMargin: 20
         }
 
-        // Поле вводу для логіна
         TextField {
             id: loginField
             placeholderText: "Enter your login"
@@ -45,7 +42,6 @@ ApplicationWindow {
             }
         }
 
-        // Поле вводу для пароля
         TextField {
             id: passwordField
             placeholderText: "Enter your password"
@@ -63,10 +59,20 @@ ApplicationWindow {
             }
         }
 
-        // Toggle Switch для перемикання між режимами
-        Row {
+        CheckBox {
+            id: showPasswordCheckBox
+            text: "Show password"
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: passwordField.bottom
+            anchors.topMargin: 10
+            onCheckedChanged: {
+                passwordField.echoMode = checked ? TextInput.Normal : TextInput.Password
+            }
+        }
+
+        Row {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: showPasswordCheckBox.bottom
             anchors.topMargin: 20
 
             Text {
@@ -100,7 +106,6 @@ ApplicationWindow {
             anchors.bottomMargin: 20
             width: parent.width * 0.5
 
-            // Кнопка активна лише коли обидва поля не порожні
             enabled: loginField.text.length > 0 && passwordField.text.length > 0
 
             background: Rectangle {
@@ -112,12 +117,14 @@ ApplicationWindow {
                 if (toggle.checked) {
                     if (authenticator.regist(loginField.text, passwordField.text)) {
                         console.log("Registration successful")
+                        manager.addKey(passwordField.text)
                     } else {
                         console.log("Registration failed")
                     }
                 } else {
                     if (authenticator.login(loginField.text, passwordField.text)) {
                         console.log("Login successful")
+                        manager.addKey(passwordField.text)
                     } else {
                         console.log("Login failed")
                     }
@@ -126,4 +133,3 @@ ApplicationWindow {
         }
     }
 }
-
