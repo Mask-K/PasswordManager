@@ -5,8 +5,8 @@
 
 class IEncryption{
 public:
-    virtual QString encrypt(const QString& data, const QString& key) = 0;
-    virtual QString decrypt(const QString& data, const QString& key) = 0;
+    virtual QString encrypt(const QString& data) = 0;
+    virtual QString decrypt(const QString& data) = 0;
 
     virtual ~IEncryption() = default;
 };

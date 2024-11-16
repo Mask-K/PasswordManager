@@ -1,13 +1,12 @@
 #ifndef PASSWORDINFO_H
 #define PASSWORDINFO_H
 
-#include <string>
+#include <QString>
 
 struct PasswordInfo{
-    std::string site;
-    std::string login;
-    std::string password;
-    std::string description;
+    QString site;
+    QString login;
+    QString password;
 };
 
 #endif // PASSWORDINFO_H

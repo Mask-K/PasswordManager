@@ -2,8 +2,7 @@
 #define PASSWORDMANAGER_H
 
 #include <QObject>
-
-#include <vector>
+#include <QVector>
 
 #include "PasswordInfo.h"
 #include "aesEncryption.h"
@@ -17,8 +16,15 @@ public:
 
     Q_INVOKABLE void addKey(const QString &password);
 
+    Q_INVOKABLE void addPassword(const QString& site, const QString& login, const QString& password);
+
+    Q_INVOKABLE void deletePassword(int index);
+
+    Q_INVOKABLE void editPassword(const QString& newSite, const QString& newLogin, const QString& newPassword, int index);
+
+    Q_INVOKABLE QVector<PasswordInfo> getPasswords();
 private:
-    std::vector<PasswordInfo> passwords;
+    QVector<PasswordInfo> passwords;
     AESEncryption encryption;
 };
 

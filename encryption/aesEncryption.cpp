@@ -10,12 +10,12 @@
 #include "constants.h"
 
 void AESEncryption::setKey(const std::string& key){
-    key__ = key;
+    key__ = QString::fromStdString(key);
 }
 
-QString AESEncryption::encrypt(const QString &data, const QString &key){
+QString AESEncryption::encrypt(const QString &data){
 
-    QByteArray keyBytes = key.toUtf8().leftJustified(constants::keyLength, '\0');
+    QByteArray keyBytes = key__.toUtf8().leftJustified(constants::keyLength, '\0');
     QByteArray iv(constants::ivLength, 0);
 
     if (RAND_bytes(reinterpret_cast<unsigned char*>(iv.data()), constants::ivLength) != 1) {
@@ -68,8 +68,8 @@ QString AESEncryption::encrypt(const QString &data, const QString &key){
     return result.toBase64();
 }
 
-QString AESEncryption::decrypt(const QString &data, const QString &key){
-    QByteArray keyBytes = key.toUtf8().leftJustified(constants::keyLength, '\0');
+QString AESEncryption::decrypt(const QString &data){
+    QByteArray keyBytes = key__.toUtf8().leftJustified(constants::keyLength, '\0');
     QByteArray encryptedData = QByteArray::fromBase64(data.toUtf8());
 
     QByteArray iv = encryptedData.left(constants::ivLength);
