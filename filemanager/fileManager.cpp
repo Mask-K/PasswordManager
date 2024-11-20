@@ -185,7 +185,6 @@ void FileManager::editPassword(const QString& newSite, const QString& newLogin, 
 QList<QJsonObject> FileManager::getPasswords(){
     QFile file(filename);
 
-    // Перевіряємо, чи файл можна відкрити для читання
     if (!file.open(QIODevice::ReadOnly)) {
         qDebug() << "Could not open file for reading:" << file.errorString();
         return {};
@@ -194,7 +193,6 @@ QList<QJsonObject> FileManager::getPasswords(){
     QByteArray fileData = file.readAll();
     file.close();
 
-    // Розбираємо JSON-файл
     QJsonDocument document = QJsonDocument::fromJson(fileData);
     if (document.isNull() || !document.isObject()) {
         qDebug() << "Invalid JSON file structure.";
@@ -210,7 +208,6 @@ QList<QJsonObject> FileManager::getPasswords(){
     QJsonArray passwordsArray = rootObject["passwords"].toArray();
     QList<QJsonObject> passwordsList;
 
-    // Конвертуємо QJsonArray у QList<QJsonObject>
     for (const QJsonValue& value : passwordsArray) {
         if (value.isObject()) {
             passwordsList.append(value.toObject());

@@ -36,5 +36,12 @@ void PasswordManager::editPassword(const QString& newSite, const QString& newLog
 
 QVector<PasswordInfo> PasswordManager::getPasswords(){
 
+    auto list = FileManager::getPasswords();
+
+    for (const QJsonObject& passwordInfo : list){
+        auto decryptedPassword = encryption.decrypt(passwordInfo["password"].toString());
+
+        passwords.push_back({passwordInfo["site"].toString(), passwordInfo["login"].toString(), decryptedPassword});
+    }
     return passwords;
 }
