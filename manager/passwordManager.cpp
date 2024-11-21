@@ -75,3 +75,16 @@ QVariantList PasswordManager::getPasswords() {
     }
     return passwordsList;
 }
+
+bool PasswordManager::isDuplicate(const QString &site, const QString &login, int index) const{
+    for (int i = 0; i < passwords.size(); ++i) {
+        if (passwords[i].site == site && passwords[i].login == login && i != index) {
+            return true;
+        }
+    }
+    return false;
+}
+
+QString PasswordManager::getPassword(int index) {
+    return passwords[index].password;
+}

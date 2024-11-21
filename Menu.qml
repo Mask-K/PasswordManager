@@ -28,7 +28,7 @@ Rectangle {
         anchors.topMargin: 80
         width: parent.width * 0.8
         font.pixelSize: 18
-
+        color: "#000000"
         background: Rectangle {
             color: "white"
             radius: 5
@@ -45,6 +45,7 @@ Rectangle {
         width: parent.width * 0.8
         font.pixelSize: 18
         echoMode: TextInput.Password
+        color: "#000000"
 
         background: Rectangle {
             color: "white"

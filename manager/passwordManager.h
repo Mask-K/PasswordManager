@@ -32,6 +32,10 @@ public:
 
     Q_INVOKABLE QVariantList getPasswords();
 
+    Q_INVOKABLE bool isDuplicate(const QString &site, const QString &login, int index=-1) const;
+
+    Q_INVOKABLE QString getPassword(int index);
+
 private:
     QVector<PasswordInfo> getDataFromFile();
 
