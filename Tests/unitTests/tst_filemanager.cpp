@@ -68,7 +68,7 @@ TEST_F(FileManagerTest, DeletePassword_InvalidIndex) {
     FileManager::deletePassword(5);
 
     QList<QJsonObject> passwords = FileManager::getPasswords();
-    ASSERT_EQ(passwords.size(), 1);  // Список паролів не повинен змінитися
+    ASSERT_EQ(passwords.size(), 1);
 }
 
 TEST_F(FileManagerTest, EditPassword_Success) {
