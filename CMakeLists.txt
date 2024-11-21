@@ -49,6 +49,8 @@ set_target_properties(appPasswordManager PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
+add_subdirectory(Tests)
+
 target_link_libraries(appPasswordManager
     PRIVATE Qt6::Quick
     PUBLIC OpenSSL::Crypto
