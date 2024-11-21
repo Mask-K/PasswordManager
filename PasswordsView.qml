@@ -75,7 +75,7 @@ Rectangle {
                         border.color: "#3D318E"
                     }
                     onClicked: {
-                        passwordsModel.remove(index)
+                        manager.deletePassword(index)
                     }
                 }
             }
@@ -133,11 +133,11 @@ Rectangle {
                 text: "Add"
                 Layout.alignment: Qt.AlignRight
                 onClicked: {
-                    passwordsModel.append({
-                                              "site": newSite.text,
-                                              "login": newLogin.text,
-                                              "password": newPassword.text
-                                          })
+                    manager.addPassword(
+                        newSite.text,
+                        newLogin.text,
+                        newPassword.text
+                    )
                     addDialog.close()
                 }
             }
@@ -183,11 +183,12 @@ Rectangle {
                 text: "Save"
                 Layout.alignment: Qt.AlignRight
                 onClicked: {
-                    passwordsModel.set(editDialog.index, {
-                                           "site": editSite.text,
-                                           "login": editLogin.text,
-                                           "password": editPassword.text
-                                       })
+                    manager.editPassword(
+                        editSite.text,
+                        editLogin.text,
+                        editPassword.text,
+                        editDialog.index
+                    )
                     editDialog.close()
                 }
             }
@@ -196,29 +197,33 @@ Rectangle {
 
     ListModel {
         id: passwordsModel
-        ListElement { site: "example.com"; login: "user1"; password: "pass1" }
-        ListElement { site: "example.org"; login: "user2"; password: "pass2" }
-        ListElement { site: "example.com"; login: "user1"; password: "pass1" }
-        ListElement { site: "example.org"; login: "user2"; password: "pass2" }
-        ListElement { site: "example.com"; login: "user1"; password: "pass1" }
-        ListElement { site: "example.org"; login: "user2"; password: "pass2" }
-        ListElement { site: "example.com"; login: "user1"; password: "pass1" }
-        ListElement { site: "example.org"; login: "user2"; password: "pass2" }
-        ListElement { site: "example.com"; login: "user1"; password: "pass1" }
-        ListElement { site: "example.org"; login: "user2"; password: "pass2" }
-        ListElement { site: "example.com"; login: "user1"; password: "pass1" }
-        ListElement { site: "example.org"; login: "user2"; password: "pass2" }
-        ListElement { site: "example.com"; login: "user1"; password: "pass1" }
-        ListElement { site: "example.org"; login: "user2"; password: "pass2" }
-        ListElement { site: "example.com"; login: "user1"; password: "pass1" }
-        ListElement { site: "example.org"; login: "user2"; password: "pass2" }
-        ListElement { site: "example.com"; login: "user1"; password: "pass1" }
-        ListElement { site: "example.org"; login: "user2"; password: "pass2" }
-        ListElement { site: "example.com"; login: "user1"; password: "pass1" }
-        ListElement { site: "example.org"; login: "user2"; password: "pass2" }
-        ListElement { site: "example.com"; login: "user1"; password: "pass1" }
-        ListElement { site: "example.org"; login: "user2"; password: "pass2" }
-        ListElement { site: "example.com"; login: "user1"; password: "pass1" }
-        ListElement { site: "example.org"; login: "user2"; password: "pass2" }
+    }
+
+    Component.onCompleted: {
+
+        var savedPasswords = manager.getPasswords2()
+        for (var i = 0; i < savedPasswords.length; i++) {
+            passwordsModel.append({
+                "site": savedPasswords[i].site,
+                "login": savedPasswords[i].login,
+                "password": savedPasswords[i].password
+            })
+        }
+    }
+
+    Connections {
+        target: manager
+        function onPasswordsUpdated() {
+
+            passwordsModel.clear()
+            var passwords = manager.getPasswords2()
+            for (var i = 0; i < passwords.length; i++) {
+                passwordsModel.append({
+                    "site": passwords[i].site,
+                    "login": passwords[i].login,
+                    "password": passwords[i].password
+                })
+            }
+        }
     }
 }
