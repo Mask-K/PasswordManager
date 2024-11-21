@@ -200,8 +200,7 @@ Rectangle {
     }
 
     Component.onCompleted: {
-
-        var savedPasswords = manager.getPasswords2()
+        var savedPasswords = manager.getPasswords()
         for (var i = 0; i < savedPasswords.length; i++) {
             passwordsModel.append({
                 "site": savedPasswords[i].site,
@@ -213,17 +212,24 @@ Rectangle {
 
     Connections {
         target: manager
-        function onPasswordsUpdated() {
-
-            passwordsModel.clear()
-            var passwords = manager.getPasswords2()
-            for (var i = 0; i < passwords.length; i++) {
+        function onPasswordAdded(site, login, password) {
                 passwordsModel.append({
-                    "site": passwords[i].site,
-                    "login": passwords[i].login,
-                    "password": passwords[i].password
+                    "site": site,
+                    "login": login,
+                    "password": password
                 })
             }
-        }
+
+            function onPasswordEdited(index, site, login, password) {
+                passwordsModel.set(index, {
+                    "site": site,
+                    "login": login,
+                    "password": password
+                })
+            }
+
+            function onPasswordDeleted(index) {
+                passwordsModel.remove(index)
+            }
     }
 }

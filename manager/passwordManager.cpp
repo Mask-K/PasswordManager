@@ -21,7 +21,7 @@ void PasswordManager::addPassword(const QString& site, const QString& login, con
 
     FileManager::addPassword(site, login, encryptedPassword);
 
-    emit passwordsUpdated();
+    emit passwordAdded(site, login, password);
 }
 
 void PasswordManager::deletePassword(int index){
@@ -30,7 +30,7 @@ void PasswordManager::deletePassword(int index){
 
     FileManager::deletePassword(index);
 
-    emit passwordsUpdated();
+    emit passwordDeleted(index);
 }
 
 void PasswordManager::editPassword(const QString& newSite, const QString& newLogin, const QString& newPassword, int index){
@@ -41,10 +41,10 @@ void PasswordManager::editPassword(const QString& newSite, const QString& newLog
 
     FileManager::editPassword(newSite, newLogin, encryptedNewPassword, index);
 
-    emit passwordsUpdated();
+    emit passwordEdited(index, newSite, newLogin, newPassword);
 }
 
-QVector<PasswordInfo> PasswordManager::getPasswords(){
+QVector<PasswordInfo> PasswordManager::getDataFromFile(){
 
     qDebug() << FileManager::filename;
     qDebug() << "Get";
@@ -61,9 +61,9 @@ QVector<PasswordInfo> PasswordManager::getPasswords(){
     return passwords;
 }
 
-QVariantList PasswordManager::getPasswords2() {
+QVariantList PasswordManager::getPasswords() {
 
-    getPasswords();
+    getDataFromFile();
 
     QVariantList passwordsList;
     for (const auto &password : passwords) {

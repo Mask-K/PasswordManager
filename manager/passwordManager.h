@@ -15,6 +15,9 @@ class PasswordManager : public QObject
 
 signals:
     void passwordsUpdated();
+    void passwordAdded(const QString& site, const QString& login, const QString& password);
+    void passwordEdited(int index, const QString& site, const QString& login, const QString& password);
+    void passwordDeleted(int index);
 
 public:
     PasswordManager(QObject *parent = nullptr);
@@ -27,9 +30,10 @@ public:
 
     Q_INVOKABLE void editPassword(const QString& newSite, const QString& newLogin, const QString& newPassword, int index);
 
-    Q_INVOKABLE QVector<PasswordInfo> getPasswords();
+    Q_INVOKABLE QVariantList getPasswords();
 
-    Q_INVOKABLE QVariantList getPasswords2();
+private:
+    QVector<PasswordInfo> getDataFromFile();
 
 private:
     QVector<PasswordInfo> passwords;
